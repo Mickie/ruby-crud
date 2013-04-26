@@ -1,3 +1,5 @@
+#this is the sample for user to add,update,show,delete the data, and multi-tasks only if user want to stop
+
 class Movies
 
         def self.getMovies
@@ -33,7 +35,7 @@ class Movies
                 end
               end
 
-          else#handle update and delelte
+          else#handle update and delete
                 while !(@@movies.include?@title) || @title.empty?
 
                   if @title.empty?
@@ -49,6 +51,9 @@ class Movies
           end
           @title
         end
+
+
+
 
         def self.add
            puts"enter the movie name you want to add "
@@ -91,45 +96,73 @@ class Movies
             puts "you have successfully delete the movie #{@title}"
         end
 
+        def self.exit
+
+            puts "bye bye"
+        end
+
 end
 
 
 #--------------code body-------------
 
 
-
-puts "type add if you want to add
-      type update if you want to update
-      type display if you want to show
-      type delete if you want to delete"
-choice=gets.chomp.downcase()
-
+#return a valid choice value
 def choice_IfValid(choice)
-    @choice=choice
-        while  @choice.empty? || (@choice!="add" && @choice !="update" && @choice!="display" &&@choice !="delete")
-            if @choice.empty?
-                puts "you don't type anything right?
+  @choice=choice
+  while  @choice.empty? || (@choice!="add" && @choice !="update" && @choice!="display" &&@choice !="delete" &&@choice != "exit")
+    if @choice.empty?
+      puts "you don't type anything right?
                   type add if you want to add
                 type update if you want to update
                 type display if you want to show
                  type delete if you want to delete"
-                @choice = gets.chomp.downcase()
-            else
-                puts "I don't understand what you are saying, try again"
-                @choice = gets.chomp.downcase()
-            end
-        end
-    @choice #must have a return value
+      @choice = gets.chomp.downcase()
+    else
+      puts "I don't understand what you are saying, try again"
+      @choice = gets.chomp.downcase()
+    end
+  end
+  @choice #must have a return value
 end
 
-#check empty? and properly
-#return a valid choice variable
+def ask_for_choice_option
+  puts "anything else?
+        type add to add
+        type update to update
+        type display to show
+        type delete to delete
+        type exit to exit"
+
+end
+
+
+def choice_action(choice)
+  case choice
+    when "add" then Movies.add
+    when "update" then Movies.update
+    when "display" then Movies.show
+    when "delete" then Movies.delete
+  end
+end
+
+
+
+
+puts "type add to add
+      type update to update
+      type display to show
+      type delete to delete
+      type exit to exit"
+choice=gets.chomp.downcase()
 choice = choice_IfValid(choice)
-case choice
-  when "add" then Movies.add
-  when "update" then Movies.update
-  when "display" then Movies.show
-  when "delete" then Movies.delete
 
+until choice=="exit"
+    choice_action(choice)
+    ask_for_choice_option
+    choice=gets.chomp.downcase()
+    choice = choice_IfValid(choice)
 end
+
+Movies.exit
 Movies.getMovies
