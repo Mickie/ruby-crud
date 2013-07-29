@@ -74,12 +74,12 @@ class Movies
                 puts "enter the rating you would like to update the movie #{@title}"
                 @rating=gets.chomp.to_i
                 @@movies[@title]=@rating
-                puts "the movie #{@title} has been updated succefully with a new rating #{@rating}"
+                puts "the movie #{@title} has been updated successfully with a new rating #{@rating}"
 
         end
 
         def self.show
-          @@movies.each do|movie,rating|
+          @@movies.each do|movie,rating|                                                    s
 
             puts"movie: #{movie}    raing: #{rating}"
           end
